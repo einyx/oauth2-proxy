@@ -1,0 +1,23 @@
+kind: pipeline
+name: build and publish
+steps:
+
+
+  - name: docker-fat
+    image: plugins/docker
+    settings:
+      repo: einyx/oauth2-proxy
+      dockerfile: Dockerfile
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+ 
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock 
